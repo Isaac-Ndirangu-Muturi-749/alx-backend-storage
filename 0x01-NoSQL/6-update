@@ -1,0 +1,6 @@
+// Script to update documents in the school collection
+db.school.update(
+    { "name": "Holberton school" }, // Query criteria to match documents
+    { $set: { "address": "972 Mission street" } }, // Update operation
+    { multi: true } // Update multiple documents that match the query
+);

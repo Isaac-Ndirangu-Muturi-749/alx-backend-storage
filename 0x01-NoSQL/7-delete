@@ -1,0 +1,4 @@
+// Script to delete documents in the school collection
+db.school.deleteMany(
+    { "name": "Holberton school" } // Query criteria to match documents
+);

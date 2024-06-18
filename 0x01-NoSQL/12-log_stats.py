@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Module 10-update_topics
+Module 12-log_stats
 """
 
 from pymongo import MongoClient

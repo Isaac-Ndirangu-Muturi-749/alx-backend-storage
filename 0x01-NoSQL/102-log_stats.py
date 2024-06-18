@@ -5,6 +5,7 @@ Module 102-log_stats
 
 from pymongo import MongoClient
 
+
 def log_stats(mongo_collection):
     # Count total logs
     total_logs = mongo_collection.count_documents({})
@@ -18,7 +19,8 @@ def log_stats(mongo_collection):
         print(f"\tmethod {method}: {count}")
 
     # Count logs with method=GET and path=/status
-    status_check = mongo_collection.count_documents({"method": "GET", "path": "/status"})
+    status_check = mongo_collection.count_documents(
+        {"method": "GET", "path": "/status"})
     print(f"{status_check} status check")
 
     # Aggregate and sort the top 10 most present IPs
@@ -32,6 +34,7 @@ def log_stats(mongo_collection):
     print("IPs:")
     for ip in top_ips:
         print(f"\t{ip['_id']}: {ip['count']}")
+
 
 if __name__ == "__main__":
     client = MongoClient('mongodb://127.0.0.1:27017')

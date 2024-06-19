@@ -22,7 +22,8 @@ def count_calls(method: Callable) -> Callable:
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         """
-        Wrapper function to increment the call count and execute the original method.
+        Wrapper function to increment the call count and execute the
+          original method.
         """
         key = method.__qualname__
         self._redis.incr(key)
@@ -33,7 +34,8 @@ def count_calls(method: Callable) -> Callable:
 
 def call_history(method: Callable) -> Callable:
     """
-    Decorator to store the history of inputs and outputs for a particular function.
+    Decorator to store the history of inputs and outputs for a
+      particular function.
 
     Args:
         method (Callable): The method to be decorated.
@@ -44,7 +46,8 @@ def call_history(method: Callable) -> Callable:
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         """
-        Wrapper function to log the input arguments and the output of the method.
+        Wrapper function to log the input arguments and the output of
+          the method.
         """
         input_key = f"{method.__qualname__}:inputs"
         output_key = f"{method.__qualname__}:outputs"
@@ -81,7 +84,11 @@ def replay(method: Callable):
     # Print the history of calls
     print(f"{method.__qualname__} was called {len(inputs)} times:")
     for input_, output in zip(inputs, outputs):
-        print(f"{method.__qualname__}(*{input_.decode('utf-8')}) -> {output.decode('utf-8')}")
+        formatted_output = (
+            f"{method.__qualname__}(*{input_.decode('utf-8')}) -> "
+            f"{output.decode('utf-8')}"
+        )
+        print(formatted_output)
 
 
 class Cache:
@@ -106,16 +113,25 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Optional[Callable] = None) -> Union[str, bytes, int, float, None]:
+    def get(self,
+            key: str,
+            fn: Optional[Callable] = None) -> Union[str,
+                                                    bytes,
+                                                    int,
+                                                    float,
+                                                    None]:
         """
-        Retrieve data from Redis using the provided key and optional conversion function.
+        Retrieve data from Redis using the provided key and optional
+          conversion function.
 
         Args:
             key (str): The key to retrieve.
-            fn (Optional[Callable]): The function to convert the data back to the desired format.
+            fn (Optional[Callable]): The function to convert the data back
+              to the desired format.
 
         Returns:
-            Union[str, bytes, int, float, None]: The retrieved data in the desired format.
+            Union[str, bytes, int, float, None]: The retrieved data in the
+              desired format.
         """
         data = self._redis.get(key)
         if data is None:

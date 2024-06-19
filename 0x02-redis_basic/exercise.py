@@ -163,3 +163,14 @@ class Cache:
             Optional[int]: The retrieved integer.
         """
         return self.get(key, int)
+
+
+# Testing the implementation
+if __name__ == "__main__":
+    cache = Cache()
+
+    cache.store("foo")
+    cache.store("bar")
+    cache.store(42)
+
+    replay(cache.store)

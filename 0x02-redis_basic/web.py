@@ -10,6 +10,7 @@ from functools import wraps
 
 redis_client = redis.Redis()
 
+
 def cache_response(method: Callable) -> Callable:
     """
     Decorator to cache the response of a function with an expiration time.

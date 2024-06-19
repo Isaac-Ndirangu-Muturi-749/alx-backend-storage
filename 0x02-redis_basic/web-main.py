@@ -1,13 +1,16 @@
-# Testing the implementation
-if __name__ == "__main__":
-    test_url = "http://slowwly.robertomurray.co.uk/delay/5000/url/http://www.google.com"
+#!/usr/bin/env python3
+""" Main file """
 
-    print("Fetching the page for the first time:")
-    print(get_page(test_url))
+get_page = __import__('web').get_page
+redis_client = __import__('web').redis_client
 
-    print("\nFetching the page for the second time (should be cached):")
-    print(get_page(test_url))
+test_url = "http://slowwly.robertomurray.co.uk/delay/5000/url/http://www.google.com"
 
-    print("\nAccess count:")
-    redis_client = redis.Redis()
-    print(redis_client.get(f"count:{test_url}").decode('utf-8'))
+print("Fetching the page for the first time:")
+print(get_page(test_url))
+
+print("\nFetching the page for the second time (should be cached):")
+print(get_page(test_url))
+
+print("\nAccess count:")
+print(redis_client.get(f"count:{test_url}").decode('utf-8'))

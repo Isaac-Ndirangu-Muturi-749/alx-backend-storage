@@ -8,6 +8,7 @@ import requests
 from typing import Callable
 from functools import wraps
 
+# Initialize Redis client
 redis_client = redis.Redis()
 
 
@@ -52,3 +53,17 @@ def get_page(url: str) -> str:
     """
     response = requests.get(url)
     return response.text
+
+
+# Example usage
+if __name__ == "__main__":
+    url = "http://google.com"
+
+    # First call - should fetch and cache
+    print(get_page(url))  # This should fetch the page
+
+    # Second call - should return cached response
+    print(get_page(url))  # This should return cached response
+
+    # Check the count
+    print(redis_client.get(f"count:{url}").decode('utf-8'))  # This should print the count
